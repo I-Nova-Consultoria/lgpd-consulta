@@ -1,32 +1,41 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <v-app>
+    <v-app-bar
+      app
+      color="white"      
+    >
+    <v-img src='./assets/logopadrao.png' style="max-width:200px;" />   
+    
+    Consulta de aceitações - Lei Geral de Proteção aos Dados
+    </v-app-bar>
+
+    <v-main class="body">
+      
+      <router-view>
+      
+      </router-view>
+    </v-main>
+
+    
+  </v-app>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
 
-#nav {
-  padding: 30px;
-}
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+export default {
+  name: 'App',
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+  components: {
+    //
+  }
+
+ 
+}
+</script>
+
+<style scoped>
+.body {
+  background-image: url('./assets/searchlogo.svg');
 }
 </style>
