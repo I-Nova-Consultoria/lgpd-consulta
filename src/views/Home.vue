@@ -1,95 +1,65 @@
 <template>
-  <v-simple-table>
-    <template v-slot:default>
-      <thead>
-        <tr>
-          <th class="text-left">
-            Nome
-          </th>
-          <th class="text-center">
-            Telefone
-          </th>
-          <th class="text-left">
-            Email
-          </th>
-          
-        </tr>
-      </thead>
-      <tbody>
-        <tr  v-for="(item, index) in user" v-bind:key="index" >
-  <td v-for="(sort,i) in item" :key="i">{{ sort }}</td>
-</tr>
-          
-          
-        
-        
-      </tbody>
-      
-    </template>
-  </v-simple-table>
+  <v-data-table :headers="headers" :items="user" item-key="email"></v-data-table>
 </template>
 
 <script>
 import firebase from 'firebase' 
 import {db} from '../service/firebase'
 
+export default {
+  data: () => ({
+    people: [{
+      nome: dados,
+    }],
+    name: null,
+    email: null,     
+    telefone: null,
+    user: null,  
+    table: table,
 
-  export default {
-
+    // cabeçalho da tabela
+    headers: [
+      {
+        text: "Nome",
+        align: "center",
+        value: "name",
+      },
+      {
+        text: "Telefone",
+        align: "center",
+        value: "telefone",
+      },
+      {
+        text: "E-mail",
+        align: "center",
+        value: "email",
+      },
+    ]
+  }),
+  computed: {
     
-    data () {   
-      
-      return {
-        userName: null,        
-        name: null,
-        email: null,       
-        userMail: null,
-        telefone: null,
-        userPhone: null,        
-        userAccept: null,
-
-        result: {
-          name: this.result, 
-          telefone: this.result2
-        }
-       
+      usersList() {
+        return this.user
       }
+    ,
+  
     
-    },
-    
-     async created() {
-       
+  async created() {
+    var userData = [];
+    await db.collection("users").get().then((querySnapshot) => {
+      querySnapshot.docs.forEach((doc) => {
+        let data = doc.data();
+        this.name = data.name;
+        this.telefone = data.telefone;
+        this.email = data.email;
+        userData.push(data);
+         this.user = userData;      
+      console.log(this.user)
+      });
 
-      var userData = []
-      await db.collection("users").get().then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-          console.log(`${doc.id} => ${doc.data()}`);          
-          userData.push(doc.data())
-          
-         
-          
-          
-          
-          
+     
     });
-
-    
-});   
-      
-
-
-      this.user = userData.map(a => a).sort((a) => a.user)  
-      
-
-
-       console.log(result)
-       sortedArray() 
-      
-      
-    },
-    
-    
-  }      
-   
+  },
+}
+}
 </script>
-
