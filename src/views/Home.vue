@@ -6,23 +6,25 @@
           <th class="text-left">
             Nome
           </th>
-          <th class="text-left">
+          <th class="text-center">
             Telefone
+          </th>
+          <th class="text-left">
+            Email
           </th>
           
         </tr>
       </thead>
       <tbody>
-        <tr
-           v-for="name in result"
-          :key="result.name"
+        <tr  v-for="(item, index) in user" v-bind:key="index" >
+  <td v-for="(sort,i) in item" :key="i">{{ sort }}</td>
+</tr>
           
-        >
-          <td>{{ name }}</td>
           
-        </tr>
+        
         
       </tbody>
+      
     </template>
   </v-simple-table>
 </template>
@@ -52,6 +54,7 @@ import {db} from '../service/firebase'
         }
        
       }
+    
     },
     
      async created() {
@@ -60,8 +63,10 @@ import {db} from '../service/firebase'
       var userData = []
       await db.collection("users").get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-          console.log(`${doc.id} => ${doc.data()}`);
+          console.log(`${doc.id} => ${doc.data()}`);          
           userData.push(doc.data())
+          
+         
           
           
           
@@ -70,16 +75,21 @@ import {db} from '../service/firebase'
 
     
 });   
-      this.result = userData.map(a => a.name)
-      this.result2 = userData.map(a => a.telefone)
       
+
+
+      this.user = userData.map(a => a).sort((a) => a.user)  
+      
+
+
        console.log(result)
+       sortedArray() 
       
       
-    }
+    },
     
     
   }      
-    
+   
 </script>
 
