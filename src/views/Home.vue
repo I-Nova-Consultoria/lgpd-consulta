@@ -8,14 +8,12 @@ import {db} from '../service/firebase'
 
 export default {
   data: () => ({
-    people: [{
-      nome: dados,
-    }],
+    
     name: null,
     email: null,     
     telefone: null,
-    user: null,  
-    table: table,
+     
+    
 
     // cabeçalho da tabela
     headers: [
@@ -37,11 +35,13 @@ export default {
     ]
   }),
   computed: {
-    
-      usersList() {
-        return this.user
+      headersList() {
+        return this.headers
+      },
+      userList() {
+        return this.users
       }
-    ,
+  },
   
     
   async created() {
@@ -61,5 +61,5 @@ export default {
     });
   },
 }
-}
+
 </script>
