@@ -12,7 +12,7 @@ export default {
     name: null,
     email: null,     
     telefone: null,
-     
+    
     
 
     // cabeçalho da tabela
@@ -39,13 +39,14 @@ export default {
         return this.headers
       },
       userList() {
-        return this.users
+        return this.user
       }
   },
   
     
   async created() {
     var userData = [];
+    var user = ""
     await db.collection("users").get().then((querySnapshot) => {
       querySnapshot.docs.forEach((doc) => {
         let data = doc.data();
